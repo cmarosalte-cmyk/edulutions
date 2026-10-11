@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gobernanza y Ejecución Operativa - Global Energy | Edu-lutions</title>
+    <!-- FAVICON INSTITUCIONAL -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/Tf8n6oy.png">
+    <style>
+        :root {
+            --primary-color: #003366;
+            --accent-color: #2E8B57;
+            --bg-color: #F8FAFC;
+            --text-color: #2C3E50;
+            --white: #FFFFFF;
+            --border-color: #E2E8F0;
+            --gray-light: #EDF2F7;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            display: flex;
+        }
+
+        /* MENÚ LATERAL DE NAVEGACIÓN (SIDEBAR) */
+        aside {
+            width: 260px;
+            background: var(--white);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.02);
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gray-light);
+            padding-bottom: 1rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 0.6rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: #eef7f2;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .main-wrapper {
+            margin-left: 260px;
+            flex: 1;
+            padding: 2rem;
+            max-width: 900px;
+            box-sizing: border-box;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #004080);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .brand-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .brand-logo {
+            max-height: 45px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 14px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            object-fit: contain;
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .author-tag {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* SIMULADOR DE LOGIN POR PERFIL */
+        .role-switcher {
+            background: var(--white);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .role-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .role-btn {
+            background: var(--gray-light);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .role-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        /* REPRODUCTOR DE VOZ EN OFF (SEGURO Y FUNCIONAL) */
+        .audio-player-bar {
+            background: #eef7f2;
+            border: 1px solid var(--accent-color);
+            color: var(--primary-color);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .audio-btn {
+            background: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 0.2s;
+        }
+
+        .audio-btn:hover {
+            background: #236d43;
+        }
+
+        /* PLAN GENERAL Y CÁPSULAS */
+        .plan-dropdown-container {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        details summary {
+            font-weight: bold;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+
+        .plan-card {
+            background: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .plan-card.active {
+            background: #eef7f2;
+            border-color: var(--accent-color);
+        }
+
+        .plan-card h5 {
+            margin: 0 0 0.3rem 0;
+            color: var(--primary-color);
+        }
+
+        .microcapsules-index {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .microcapsules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .micro-item {
+            background: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .micro-item.current {
+            background: #eef7f2;
+            border-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .status-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            margin-top: 0.4rem;
+            font-weight: bold;
+        }
+        .status-active { background: var(--accent-color); color: white; }
+        .status-future { background: #cbd5e1; color: #475569; }
+
+        section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--gray-light);
+            padding-bottom: 0.5rem;
+        }
+
+        /* TARJETAS FLIP */
+        .flip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 190px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+            border-radius: 6px;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .flip-card-front {
+            background: var(--gray-light);
+            color: var(--primary-color);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .flip-card-front h4 {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .flip-card-front span {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 0.4rem;
+        }
+
+        .flip-card-back {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: rotateY(180deg);
+            font-size: 0.8rem;
+            text-align: left;
+        }
+
+        blockquote {
+            font-style: italic;
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #eef3f7;
+            border-radius: 6px;
+        }
+
+        /* QUIZ */
+        .quiz-container {
+            border-left-color: var(--primary-color);
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .question-block {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .question-block h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options-list li {
+            margin-bottom: 0.4rem;
+        }
+
+        .options-list label {
+            display: block;
+            padding: 0.5rem 0.8rem;
+            background: var(--gray-light);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .options-list label:hover {
+            background: #e2e8f0;
+        }
+
+        .quiz-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            font-weight: bold;
+        }
+
+        /* SECCIÓN DE CONTACTO Y SOPORTE */
+        .contact-section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .contact-grid {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--gray-light);
+            padding: 0.8rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* FOOTER CORPORATIVO */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: var(--white);
+            margin-top: 3rem;
+            border-radius: 8px;
+        }
+
+        .footer-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo {
+            max-height: 35px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4px 10px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        /* CONTROL DE VISTA POR PERFIL */
+        .view-directivo { display: block; }
+        .view-jefatura { display: none; }
+        body.mode-jefatura .view-directivo { display: none; }
+        body.mode-jefatura .view-jefatura { display: block; }
+
+        @media (max-width: 768px) {
+            body { display: block; }
+            aside { display: none; }
+            .main-wrapper { margin-left: 0; padding: 1rem; }
+        }
+    </style>
+</head>
+<body class="mode-directivo">
+
+    <!-- ÍNDICE LATERAL (SIDEBAR) -->
+    <aside>
+        <div class="sidebar-brand">Edu-lutions | Global Energy</div>
+        <ul class="sidebar-menu">
+            <li><a href="#plan" class="active">📅 Plan Institucional</a></li>
+            <li><a href="#microindex">🔍 Microcápsulas Sem. 1</a></li>
+            <li><a href="#contenido">🎯 Contenido Específico</a></li>
+            <li><a href="#decisiones">📊 Decisiones / Ejecución</a></li>
+            <li><a href="#quiz">📝 Autoevaluación</a></li>
+            <li><a href="#contacto">💬 Soporte y Consultas</a></li>
+        </ul>
+    </aside>
+
+    <div class="main-wrapper">
+
+        <header>
+            <div class="brand-logos">
+                <img src="https://i.imgur.com/Tf8n6oy.png" alt="Edu-lutions" class="brand-logo" onerror="this.style.display='none'" />
+                <img src="https://i.imgur.com/4Gqvk3m.png" alt="Global Energy" class="brand-logo" onerror="this.style.display='none'" />
+            </div>
+            <h1>Gobernanza y Ejecución Operativa</h1>
+            <p>Entorno tecnoeducativo especializado para directivos y jefaturas de Global Energy.</p>
+            <div class="author-tag">Autor: Carlos Arosa | Tecnología Educativa II</div>
+        </header>
+
+        <!-- SIMULADOR DE LOGIN INSTITUCIONAL -->
+        <div class="role-switcher">
+            <div>
+                <strong>👤 Perfil Activo (Simulador de Login):</strong> 
+                <span id="roleLabel" style="color: var(--primary-color); font-weight: bold;">Director de Proyecto (Alto Nivel / Estratégico)</span>
+            </div>
+            <div class="role-buttons">
+                <button class="role-btn active" id="btnDirectivo" onclick="switchRole('directivo')">Director de Proyecto</button>
+                <button class="role-btn" id="btnJefatura" onclick="switchRole('jefatura')">Jefe de Área (Primera Línea)</button>
+            </div>
+        </div>
+
+        <!-- REPRODUCTOR DE VOZ EN OFF (SYNTHESIS API - SEGURO Y DINÁMICO) -->
+        <div class="audio-player-bar">
+            <div>🔊 <strong>Locución Institucional (Voz en Off):</strong> <span id="audioTitle">Resumen de Gobernanza Estratégica Directiva</span></div>
+            <button class="audio-btn" onclick="toggleSpeech()">▶ Reproducer Locución</button>
+        </div>
+
+        <!-- MÓDULO INSTITUCIONAL DE SEMANAS -->
+        <div class="plan-dropdown-container" id="plan">
+            <details>
+                <summary>📋 Módulo Institucional: Plan de Capacitación (Semanas 1 a 8)</summary>
+                <p style="margin-top: 0.8rem; font-size: 0.9rem; color: #555;">Desglose completo de entregables y cronograma:</p>
+                <div class="plan-grid">
+                    <div class="plan-card active">
+                        <h5>Semana 1 (Actual)</h5>
+                        <p>Gobernanza & Normativa Nuclear</p>
+                        <span class="status-tag status-active">En Curso</span>
+                    </div>
+                    <div class="plan-card">
+                        <h5>Semana 2</h5>
+                        <p>Indicadores & Guías de Puesto</p>
+                        <span class="status-tag status-future">Lanzamiento: 18/10</span>
+                    </div>
+                    <div class="plan-card">
+                        <h5>Semana 3</h5>
+                        <p>Auditorías Operativas</p>
+                        <span class="status-tag status-future">Lanzamiento: 25/10</span>
+                    </div>
+                    <div class="plan-card">
+                        <h5>Semanas 4 a 8</h5>
+                        <p>Foro de Casos Reales & Mejora</p>
+                        <span class="status-tag status-future">Acompañamiento Post</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- ÍNDICE DE MICROCÁPSULAS DE LA SEMANA 1 -->
+        <div class="microcapsules-index" id="microindex">
+            <h3 id="microIndexTitle">📑 Índice de Microcápsulas — Semana 1 (Directores de Proyecto)</h3>
+            <p style="font-size: 0.85rem; color: #555; margin-top: -0.5rem;">Píldoras formativas asincrónicas (120 min semanales total):</p>
+            <div class="microcapsules-grid" id="microGridContainer">
+                <div class="micro-item"><strong>Micro 1.1</strong><br><span style="font-size:0.75rem">Intro Plan</span><span class="status-tag status-active">Completa</span></div>
+                <div class="micro-item current"><strong>Micro 1.2</strong><br><span style="font-size:0.75rem">Gobernanza</span><span class="status-tag status-active">Activa</span></div>
+                <div class="micro-item"><strong>Micro 1.3</strong><br><span style="font-size:0.75rem">Cultura ARN</span><span class="status-tag status-future">12/10</span></div>
+                <div class="micro-item"><strong>Micro 1.4</strong><br><span style="font-size:0.75rem">Decisiones</span><span class="status-tag status-future">13/10</span></div>
+                <div class="micro-item"><strong>Micro 1.5</strong><br><span style="font-size:0.75rem">Evaluación</span><span class="status-tag status-future">14/10</span></div>
+            </div>
+        </div>
+
+        <!-- ==================== VISTA 1: DIRECTORES DE PROYECTO ==================== -->
+        <div class="view-directivo">
+            <section id="contenido">
+                <h2>🎯 Gobernanza Estratégica y Alineación Normativa</h2>
+                <p>En esta sesión orientada a los <strong>2 Directores de Proyecto</strong>, establecemos las bases del liderazgo institucional mediante pilares estratégicos:</p>
+                <ul>
+                    <li><strong>Integración Macro:</strong> Armonización de los estándares ISO 9001 con la normativa estricta de la Autoridad Regulatoria Nuclear (ARN).</li>
+                    <li><strong>Rol Directivo Activo:</strong> Transformación de la cultura de calidad en un motor de agilidad, desterrando la burocracia pasiva.</li>
+                    <li><strong>Visión de Negocio:</strong> Supervisión de la trazabilidad global de los proyectos de infraestructura energética de Global Energy.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>🛡️ Marco Normativo y Licencia Operativa</h2>
+                <p>La alta dirección garantiza que la obligatoriedad regulatoria se convierta en una ventaja competitiva sostenible. Gestionamos la complejidad sin frenar la velocidad de ejecución de la compañía.</p>
+            </section>
+
+            <blockquote>
+                "La verdadera cultura de calidad es aquella que fluye sin resistencia, transformando la normativa en una guía intuitiva para el éxito estratégico."
+            </blockquote>
+
+            <section id="decisiones">
+                <h2>📊 Pautas para Decisiones Macro (Directivos)</h2>
+                <p><em>Pase el cursor sobre cada tarjeta interactiva para revelar los lineamientos estratégicos:</em></p>
+                <div class="flip-grid">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Gobernanza basada en datos</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Implementación de tableros de control macro para eliminar la incertidumbre en alta gerencia.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Sostenibilidad en el proceso</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Criterios de resiliencia corporativa a largo plazo en cada decisión de infraestructura crítica.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Visión sistémica</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Alineación total entre los objetivos de Global Energy y la ejecución de los equipos de primera línea.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Análisis de riesgo directivo</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Anticipación estratégica para la protección integral de los activos y la licencia técnica de planta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== VISTA 2: JEFES DE ÁREA DE PRIMERA LÍNEA ==================== -->
+        <div class="view-jefatura">
+            <section id="contenido">
+                <h2>🎯 Ejecución Operativa y Control de Calidad en Planta</h2>
+                <p>Diseñado específicamente para los <strong>8 Jefes de Área de Primera Línea</strong>, este módulo traslada la estrategia de gobernanza al terreno operativo diario:</p>
+                <ul>
+                    <li><strong>Pautas JPM (Job Performance Measures):</strong> Estructuración de listas de cotejo prácticas para supervisar directamente las tareas de los equipos técnicos.</li>
+                    <li><strong>On-the-Job Training (OJT):</strong> Capacitación directa en el puesto de trabajo vinculando la teoría normativa de la ARN con la inspección en sitio.</li>
+                    <li><strong>Monitoreo de Desvíos:</strong> Auditoría de procesos en tiempo real para la corrección inmediata de no conformidades operativas.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>⚙️ Protocolos de Inspección y Trazabilidad en Sitio</h2>
+                <p>Como jefaturas de primera línea, su rol consiste en ejecutar las directrices de los directores asegurando que cada inspección en campo cumpla con los estándares rigurosos de seguridad nuclear y calidad operativa.</p>
+            </section>
+
+            <blockquote>
+                "La excelencia operativa en planta se logra cuando el control de calidad deja de ser un documento archivado y se convierte en una herramienta viva de supervisión diaria."
+            </blockquote>
+
+            <section id="decisiones">
+                <h2>📊 Pautas de Ejecución Operativa (Jefaturas)</h2>
+                <p><em>Pase el cursor sobre cada tarjeta interactiva para revelar los protocolos tácticos en planta:</em></p>
+                <div class="flip-grid">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Auditoría de KPIs en Campo</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Lectura diaria de indicadores de desempeño operativo para detectar desvíos técnicos antes de la fase crítica.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Aplicación de Listas JPM</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Uso estricto de pautas de desempeño estandarizadas para evaluar al personal técnico bajo su mando directo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Gestión de No Conformidades</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Registro inmediato de desvíos operativos y escalamiento al foro de debate técnico para resolución en 24 hs.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h4>Mejora Continua (PDCA)</h4>
+                                <span>(Gire para ver detalle)</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <p>Ejecución práctica de los ciclos de mejora en planta para asegurar la trazabilidad de los proyectos nucleares.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- QUIZ INTERACTIVO COMÚN -->
+        <section id="quiz" class="quiz-container">
+            <h2>📝 Quiz de Autoevaluación Institucional</h2>
+            <p>Responda las siguientes 4 preguntas para validar los conceptos de la sesión actual:</p>
+
+            <form id="quizForm">
+                <div class="question-block">
+                    <h4>1. ¿Cuál es el propósito central de alinear la ISO 9001 con la normativa ARN?</h4>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="q1" value="a"> Generar mayor carga burocrática en las oficinas.</label></li>
+                        <li><label><input type="radio" name="q1" value="b"> Garantizar la excelencia operativa, la licencia social y técnica de Global Energy.</label></li>
+                        <li><label><input type="radio" name="q1" value="c"> Omitir las inspecciones periódicas de seguridad.</label></li>
+                    </ul>
+                </div>
+
+                <div class="question-block">
+                    <h4>2. En el nivel directivo, ¿cómo se concibe la cultura de calidad?</h4>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="q2" value="a"> Como un activo dinámico de facilitación estratégica, no como un trámite estático.</label></li>
+                        <li><label><input type="radio" name="q2" value="b"> Como un conjunto de formularios complejos sin vinculación al negocio.</label></li>
+                        <li><label><input type="radio" name="q2" value="c"> Como una tarea delegada exclusivamente en los auditores externos.</label></li>
+                    </ul>
+                </div>
+
+                <div class="question-block">
+                    <h4>3. ¿Cuál es la función principal de los Jefes de Área de Primera Línea en este programa?</h4>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="q3" value="a"> Redactar manuales teóricos sin aplicación práctica.</label></li>
+                        <li><label><input type="radio" name="q3" value="b"> Ejecutar la supervisión directa mediante pautas JPM y OJT en planta.</label></li>
+                        <li><label><input type="radio" name="q3" value="c"> Reemplazar las decisiones gerenciales de los directores.</label></li>
+                    </ul>
+                </div>
+
+                <div class="question-block">
+                    <h4>4. ¿Qué canal se utiliza durante las semanas 4 a 8 para resolver casos reales de planta?</h4>
+                    <ul class="options-list">
+                        <li><label><input type="radio" name="q4" value="a"> Un foro de debate técnico con respuesta asincrónica en menos de 24 horas.</label></li>
+                        <li><label><input type="radio" name="q4" value="b"> Un examen presencial de múltiples opción en la central.</label></li>
+                        <li><label><input type="radio" name="q4" value="c"> Llamadas telefónicas de emergencia nocturnas.</label></li>
+                    </ul>
+                </div>
+
+                <button type="button" class="quiz-btn" onclick="evaluateQuiz()">Enviar Respuestas</button>
+            </form>
+
+            <div id="quizResult" class="result-box"></div>
+        </section>
+
+        <!-- SECCIÓN DE CONSULTAS Y CONTACTO -->
+        <section id="contacto" class="contact-section">
+            <h2>💬 Soporte Técnico y Consultas Académicas</h2>
+            <p>¿Tiene dudas sobre los contenidos o inconvenientes técnicos con la plataforma? Contáctenos a través de nuestros canales oficiales:</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <span>📱 WhatsApp Directivo:</span> +54 9 11 5555-0199
+                </div>
+                <div class="contact-item">
+                    <span>✉️ Soporte Académico:</span> soporte.ejecutivo@edu-lutions.com
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER CORPORATIVO CON LOGOS Y DERECHOS RESERVADOS -->
+        <footer>
+            <div class="footer-logos">
+                <img src="https://i.imgur.com/Tf8n6oy.png" alt="Edu-lutions" class="footer-logo" />
+                <img src="https://i.imgur.com/4Gqvk3m.png" alt="Global Energy" class="footer-logo" />
+            </div>
+            <p><strong>Edu-lutions | Tecnología Educativa & Gobernanza de Calidad</strong></p>
+            <p style="font-size: 0.8rem; opacity: 0.8; margin-top: 0.5rem;">
+                Material de capacitación ejecutiva preparado por Edu-lutions exclusivamente para Global Energy. Todos los derechos reservados © 2026.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Lógica de Cambio de Perfil (Simulador de Login)
+        function switchRole(role) {
+            const body = document.body;
+            const btnDir = document.getElementById('btnDirectivo');
+            const btnJef = document.getElementById('btnJefatura');
+            const label = document.getElementById('roleLabel');
+            const microTitle = document.getElementById('microIndexTitle');
+            const microGrid = document.getElementById('microGridContainer');
+            const audioTitle = document.getElementById('audioTitle');
+
+            // Detener voz activa al cambiar de perfil
+            window.speechSynthesis.cancel();
+            speaking = false;
+            document.querySelector('.audio-btn').innerText = '▶ Reproducir Locución';
+
+            if (role === 'directivo') {
+                body.className = 'mode-directivo';
+                btnDir.className = 'role-btn active';
+                btnJef.className = 'role-btn';
+                label.innerText = 'Director de Proyecto (Alto Nivel / Estratégico)';
+                audioTitle.innerText = 'Resumen de Gobernanza Estratégica Directiva';
+                microTitle.innerText = '📑 Índice de Microcápsulas — Semana 1 (Directores de Proyecto)';
+                microGrid.innerHTML = `
+                    <div class="micro-item"><strong>Micro 1.1</strong><br><span style="font-size:0.75rem">Intro Plan</span><span class="status-tag status-active">Completa</span></div>
+                    <div class="micro-item current"><strong>Micro 1.2</strong><br><span style="font-size:0.75rem">Gobernanza</span><span class="status-tag status-active">Activa</span></div>
+                    <div class="micro-item"><strong>Micro 1.3</strong><br><span style="font-size:0.75rem">Cultura ARN</span><span class="status-tag status-future">12/10</span></div>
+                    <div class="micro-item"><strong>Micro 1.4</strong><br><span style="font-size:0.75rem">Decisiones</span><span class="status-tag status-future">13/10</span></div>
+                    <div class="micro-item"><strong>Micro 1.5</strong><br><span style="font-size:0.75rem">Evaluación</span><span class="status-tag status-future">14/10</span></div>
+                `;
+            } else {
+                body.className = 'mode-jefatura';
+                btnDir.className = 'role-btn';
+                btnJef.className = 'role-btn';
+                btnJef.className = 'role-btn active';
+                label.innerText = 'Jefe de Área de Primera Línea (Nivel Ejecutivo / OJT)';
+                audioTitle.innerText = 'Resumen de Ejecución Operativa y Pautas JPM en Planta';
+                microTitle.innerText = '📑 Índice de Microcápsulas — Semana 1 (Jefaturas de Área)';
+                microGrid.innerHTML = `
+                    <div class="micro-item"><strong>Micro 1.1</strong><br><span style="font-size:0.75rem">Intro
